@@ -73,8 +73,9 @@ border: #222;
 /*button*/
 .a
 {
+    padding-top: 50px;
 	position: absolute;
-	top:50%;
+	top:100%;
 	left: 50%;
 	transform:translate(-50%,-50%);
 	margin: 0;
@@ -182,11 +183,11 @@ border: #222;
  
  
  .footer {
-	 margin-top: 15px;
-  padding-bottom: 50px;
-  background-color: #473c40;
-  color: #ccc;
-  padding-top: 50px;
-  
-  width: 100%;
+    margin-top: 15px;
+ padding-bottom: 50px;
+ background-color: #473c40;
+ color: #ccc;
+ padding-top: 50px;
+ 
+ width: 100%;
 }
