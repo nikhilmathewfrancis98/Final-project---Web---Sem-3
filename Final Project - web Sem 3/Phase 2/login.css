@@ -6,7 +6,7 @@
   margin: auto;
 }
 
-.form input {
+.form input,select,option {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -16,6 +16,7 @@
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -42,4 +43,28 @@
 .form .message a {
   color: #4CAF50;
   text-decoration: none;
+}
+
+select option:first-child{
+  color: gray;
+}
+
+.form select{
+
+  appearance: none;
+  padding-right: 2em;
+
+
+  &:invalid {
+    color: gray;
+  }
+
+
+  [disabled] {
+    color: gray;
+  }
+
+  option {
+    color: $default-color;
+  }
 }
