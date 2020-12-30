@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +29,7 @@
             <a href="index.html"><h1>SSN Dish Tv Recharge</h1></a>
            </div>
 
-          <button style="visibility:hidden" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+       <button style="visibility:hidden" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -35,13 +38,13 @@
         </div>
 
         <div id="collapsable-nav" class="collapse navbar-collapse">
-           <ul style="visibility:hidden" id="nav-list" class="nav navbar-nav navbar-right">
+           <ul id="nav-list" class="nav navbar-nav navbar-right" style="visibility:hidden">
             <li>
-              <a href="#">
+             <a href="#" hidden>
                 <span><i class='fas fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Sign In</a>
             </li>
             <li>
-              <a href="#">
+              <a href="#" hidden>
                 <span><i class="fa fa-user"></i></span><br class="hidden-xs">User Sign In</a>
             </li>
 
@@ -51,33 +54,67 @@
     </nav><!-- #header-nav -->
   </header>
 
+  <!-- PHP BEGIN -->
+  
+  <?php
+    $error = $error_login = $error_username = $error_password = "";
+    if(isset($_REQUEST['login'])){
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+		
+        if(empty($username) || empty($password)){
+            if(empty($username)){
+				echo '<script>alert("Wrong info")</script>';
+                $error_username = "Username field is mendatory";
+            }
+            if(empty($password)){
+				echo '<script>alert("Wrong info")</script>';
+                $error_password = "Password field is mendatory";
+            }
+        }
+        else{
+                $query = mysqli_query($mysqli, "SELECT * FROM users WHERE username='$username' AND password='$password'");
+                $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $row = mysqli_fetch_array($query);
+
+                    $_SESSION['U_Id'] = $row['U_Id'];
+                    $_SESSION['username'] = $row['username'];
+					$_SESSION['type'] = $row['type'];
+					if($row['type']=='admin')
+					{
+                    header("location:adminpage.html");
+					}
+					if($row['type']=='cust')
+					{
+                    header("location:User_page.html");
+					}
+                }
+                else{
+					echo '<script>alert("Wrong info")</script>';
+                    $error_login = "Invalid login data, check username or password";
+                }
+            }
+        }
+        ?>
+  <!-- PHP END -->
 
   <!-- Main content -->
+  <form action="login.php" method="post">
   <div id="main-content" style="width: 100%;height: 700px;" >
     <div class="login-page">
     <div class="form">
 
       <form class="login-form">
-        <input type="text" placeholder="name"/>
-        <input type="text" placeholder="d.o.b"
-                    onfocus="(this.type='date')"
-                    onblur="(this.type='text')">
-        <select>
-                <option value="" disabled selected style="color:grey">gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-        </select>
-        <input type="text" placeholder="phone number"/>
-        <input type="email" placeholder="email"/>
-        <input type="text" placeholder="username"/>
-        <input type="password" placeholder="password"/>
-        <button>SignUp</button>
-        <p class="message">Already registered? <a href="Login.html">Log In</a></p>
+        <input type="text" placeholder="username" name="username"/>
+        <input type="password" placeholder="password" name="password"/>
+        <button type="submit" name="login" value="login">login</button>
+        <p class="message">Not registered? <a href="Signup.php">Create an account</a></p>
       </form>
     </div>
   </div>
-  </div><!--end log form -->
+  </div>
+</form><!--end log form -->
 
         </div> <!-- main-content closing -->
 <br style="width: 50px; border:2px solid black;">

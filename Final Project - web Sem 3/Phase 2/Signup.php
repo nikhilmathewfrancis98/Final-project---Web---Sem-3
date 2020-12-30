@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +29,7 @@
             <a href="index.html"><h1>SSN Dish Tv Recharge</h1></a>
            </div>
 
-       <button style="visibility:hidden" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+          <button style="visibility:hidden" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -35,13 +38,13 @@
         </div>
 
         <div id="collapsable-nav" class="collapse navbar-collapse">
-           <ul id="nav-list" class="nav navbar-nav navbar-right" style="visibility:hidden">
+           <ul style="visibility:hidden" id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-             <a href="#" hidden>
+              <a href="#">
                 <span><i class='fas fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Sign In</a>
             </li>
             <li>
-              <a href="#" hidden>
+              <a href="#">
                 <span><i class="fa fa-user"></i></span><br class="hidden-xs">User Sign In</a>
             </li>
 
@@ -50,18 +53,58 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-
+  <!-- PHP BEGIN -->
+  <?php
+    $error = $error_login = $error_username = $error_password = "";
+    if(isset($_REQUEST['signup'])){
+        $name = $_REQUEST['name'];
+		$dob = $_REQUEST['age'];
+		$gender =$_REQUEST['gender'];
+		$phone = $_REQUEST['phone'];
+		$email = $_REQUEST['email'];
+		$username = $_REQUEST['uname'];
+        $password = $_REQUEST['pwd'];
+		
+          $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
+		  $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $maxid = mysqli_fetch_array($query);
+					$Cid = $maxid['max']+1;
+					$result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
+					$result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
+				}
+				else
+				{ 
+				      echo "<font color='red'>error</font><br/>";
+				}
+					 
+        }
+        ?>
+  
+  <!-- PHP END -->
 
   <!-- Main content -->
   <div id="main-content" style="width: 100%;height: 700px;" >
     <div class="login-page">
     <div class="form">
 
-      <form class="login-form">
-        <input type="text" placeholder="username"/>
-        <input type="password" placeholder="password"/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="SIgnup.html">Create an account</a></p>
+      <form class="login-form" method="post" action="">
+        <input type="text" placeholder="name" name="name"/>
+        <input type="text" placeholder="d.o.b"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')" name="age"/>
+        <select name="gender">
+                <option value="" disabled selected style="color:grey">gender</option>
+                <option value="male" name="gender">Male</option>
+                <option value="female" name="gender">Female</option>
+                <option value="other" name="gender">Other</option>
+        </select>
+        <input type="text" placeholder="phone number" name="phone"/>
+        <input type="email" placeholder="email" name="email"/>
+        <input type="text" placeholder="username" name="uname"/>
+        <input type="password" placeholder="password" name="pwd"/>
+        <button type="submit" name="signup" value="signup">SignUp</button>
+        <p class="message">Already registered? <a href="Login.html">Log In</a></p>
       </form>
     </div>
   </div>
