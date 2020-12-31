@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,16 +51,50 @@
     </nav><!-- #header-nav -->
   </header>
   
-   
+   <!-- PHP BEGIN -->
+  <?php
+    $error = $error_login = $error_username = $error_password = "";
+    if(isset($_REQUEST['btn'])){
+        $name = $_REQUEST['name'];
+		$details = $_REQUEST['det'];
+		$price =$_REQUEST['price'];
+		$dishtv=$_REQUEST['dish'];
+		  
+          $query = mysqli_query($mysqli, "SELECT MAX(Offer_Id) as max from offers");
+		  $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $maxid = mysqli_fetch_array($query);
+					$Cid = $maxid['max']+1;
+					
+				}
+				else
+				{ 
+				      $Cid=1;
+				}
+				$result = mysqli_query($mysqli, "INSERT INTO offers(Offer_Id,D_Id,price,OfferDetails) VALUES('$Cid','$dishtv','$price','$details')");
+					 
+        }
+        ?>
+  
+  <!-- PHP END -->
   
   <!-- Main content -->
   <div>
   <form>
-  <div><input type="text" name="" placeholder="Offer Name"></div><br>
-  <div><input type="text" name="" placeholder="Offer Details"></div><br>
-  <div><input type="text" name="" placeholder="Validity"></div><br>
-  <div><input type="number" name="" placeholder="Amount"></div><br>
-  <button class="btn" value="submit"> Add</button>
+  <div><input type="text" name="name" placeholder="Offer Name"></div><br>
+  <?php
+    $dish  =  mysqli_query($mysqli, "SELECT D_Id,D_name from dish");
+               
+  echo "<select name=dish>";
+                echo"<option value='' disabled selected style='color:grey'>DISH</option>";
+				while ($row = mysqli_fetch_assoc($dish)) {
+                echo"<option value=$row[D_Id]>$row[D_name]</option>";
+                }
+        echo"</select>"
+		?>
+  <div><input type="text" name="det" placeholder="Offer Details"></div><br>
+  <div><input type="number" name="price" placeholder="Amount"></div><br>
+  <button class="btn" name="btn" value="submit"> Add</button>
   <button class="btn"value="reset"> cancel</button>
   <button class="btn"> <a href="adminpage.html">Back</a></button>
 </form>

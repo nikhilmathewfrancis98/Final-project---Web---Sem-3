@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,22 +51,49 @@
     </nav><!-- #header-nav -->
   </header>
   
+  <!-- PHP BEGIN -->
+  <?php
+    $error = $error_login = $error_username = $error_password = "";
+    if(isset($_REQUEST['btn'])){
+        $name = $_REQUEST['name'];
+		$Oname= $_REQUEST['Oname'];
+		$sat =$_REQUEST['sat'];
+		$link = $_REQUEST['link'];
+		//must give image
+		
+          $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
+		  $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $maxid = mysqli_fetch_array($query);
+					$Cid = $maxid['max']+1;
+				}
+				else
+				{ $Cid=1;
+					
+			    }		
+				$result = mysqli_query($mysqli, "INSERT INTO dish(D_Id,D_Name,D_Details) VALUES('$Cid','$name','$link')");
+				
+					 
+        }
+        ?>
+  
+  <!-- PHP END -->
    
   
   <!-- Main content -->
   <div>
   <form>
-  <div><input type="text" name="" placeholder="Operator Name"></div><br>
-  <div><input type="text" name="" placeholder="Owner Name"></div><br>
-  <div><input type="text" name="" placeholder="Satellite"></div><br>
-  <div><input type="url" name="" placeholder="Website"></div><br>
+  <div><input type="text" name="name" placeholder="Operator Name"></div><br>
+  <div><input type="text" name="Oname" placeholder="Owner Name"></div><br>
+  <div><input type="text" name="sat" placeholder="Satellite"></div><br>
+  <div><input type="url" name="link" placeholder="Website"></div><br>
    <div class="file-field">
     <div class="btn btn-primary btn-sm float-left">
       <span>Operator logo</span>
-      <input type="file">
+      <input type="file" name="image">
     </div>
   </div><br>
-  <button class="btn_1" value="submit"> Add</button>
+  <button class="btn_1" name ="btn" value="submit"> Add</button>
   <button class="btn_1"value="reset"> Cancel</button>
   <button class="btn_1"> <a href="adminpage.html">Back</a></button>
 </form>
