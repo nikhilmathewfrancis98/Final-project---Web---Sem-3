@@ -20,6 +20,34 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+select
+{
+  border: none;
+  appearance:none;
+  background: #f2f2f2;
+  padding: 12px;
+  border-radius: 3px;
+  width: 250px;
+  outline:none; 
+  appearance: none;
+  padding-right: 2em;
+
+
+  &:invalid {
+    color: gray;
+  }
+
+
+  [disabled] {
+    color: gray;
+  }
+
+  option {
+    color: $default-color;
+  }
+}
+</style>
   </head>
 <body>
   <header>
@@ -84,13 +112,14 @@
   <div><input type="text" name="name" placeholder="Offer Name"></div><br>
   <?php
     $dish  =  mysqli_query($mysqli, "SELECT D_Id,D_name from dish");
-               
-  echo "<select name=dish>";
+        echo"<div>";      
+        echo "<select name=dish>";
                 echo"<option value='' disabled selected style='color:grey'>DISH</option>";
 				while ($row = mysqli_fetch_assoc($dish)) {
                 echo"<option value=$row[D_Id]>$row[D_name]</option>";
                 }
-        echo"</select>"
+        echo"</select>";
+		echo"</div><br>";
 		?>
   <div><input type="text" name="det" placeholder="Offer Details"></div><br>
   <div><input type="number" name="price" placeholder="Amount"></div><br>
