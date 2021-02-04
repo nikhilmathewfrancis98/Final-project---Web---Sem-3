@@ -19,7 +19,8 @@
 
 }
 .form button {
-  font-family: "Roboto", sans-serif;
+  
+
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -32,7 +33,7 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+.form #submt:hover,.form #submt:active,.form #submt:focus {
   background: #43A047;
 }
 .form .message {
@@ -53,9 +54,9 @@ select option:first-child{
 
   appearance: none;
   padding-right: 2em;
+}
 
-
-  &:invalid {
+&:invalid {
     color: gray;
   }
 
@@ -66,5 +67,8 @@ select option:first-child{
 
   option {
     color: $default-color;
+  
   }
-}
+
+
+
