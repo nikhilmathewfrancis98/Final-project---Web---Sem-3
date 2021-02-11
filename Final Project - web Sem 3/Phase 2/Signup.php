@@ -95,6 +95,7 @@ require("config.php");
           $Cid = $maxid['max'] + 1;
           $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
           $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
+          header("location:Login.php");
         } 
         else 
         {
