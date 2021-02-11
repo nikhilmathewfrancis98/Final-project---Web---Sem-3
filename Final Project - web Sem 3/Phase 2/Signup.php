@@ -80,30 +80,68 @@ require("config.php");
     $username = $_REQUEST['uname'];
     $password = $_REQUEST['pwd'];
 
-    $queryUsr = mysqli_query($mysqli, "SELECT U_Id  from users where username = $username");
+    $queryUsr = mysqli_query($mysqli, "SELECT U_Id  from users where username = '$username'");
+
     $countusr = mysqli_num_rows($queryUsr);
 
-    if ($countusr < 1) {
-      $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
-      $count = mysqli_num_rows($query);
+    if ($countusr < 1) 
+    {
+        $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
+        $count = mysqli_num_rows($query);
 
-      if ($count == 1) {
-        $maxid = mysqli_fetch_array($query);
-        $Cid = $maxid['max'] + 1;
-        $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
-        $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
-      } else {
-        echo "<font color='red'>error</font><br/>";
-      }
-    } else {
+        if ($count == 1) 
+        {
+          $maxid = mysqli_fetch_array($query);
+          $Cid = $maxid['max'] + 1;
+          $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
+          $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
+        } 
+        else 
+        {
+          echo "<font color='red'>error</font><br/>";
+        }
+    } 
+    else 
+    {
 
   ?>
-      <div class="col-sm-6 mt-5 mx-auto">
-        <div class="alert alert-danger alert-dismissible">
+
+      <div class="col-md-12 mx-auto" >
+        <div class="alert alert-danger alert-dismissible text-center">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>User already exists with this Username </strong>
+          <strong style="background-color:white;">User already exists with this Username </strong>
         </div>
       </div>
+
+
+
+      <!--  <div class="alert alert-warning alert-dismissible fade show">
+        <h4 class="alert-heading"><i class="fa fa-warning"></i> Warning!</h4>
+        <p>Please enter a valid value in all the required fields before proceeding. If you need any help just place the mouse pointer above info icon next to the form field.</p>
+        <hr>
+        <p class="mb-0">Once you have filled all the details, click on the 'Next' button to continue.</p>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div> -->
+
+      <!-- <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Registration Status:</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              You have registered successfully !
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div> -->
+      <!-- <script> alert ("User already exists");</script> -->
+
   <?php
     }
   }
@@ -112,10 +150,14 @@ require("config.php");
   <!-- PHP END -->
 
   <!-- Main content -->
-  <div id="main-content" style="width: 100%; margin-bottom:5px;  border:2px solid black;">
+
+  <div id="main-content" style="width: 100%; padding-bottom:5px; ">
+
+
 
     <div class="login-page">
 
+ <div style="width: 100%; display: flex;justify-content: center;"><b><h2 class="text-center" style="width: 120px; background-color: lightblue; font-style:italic; font-weight: 500; border: 1px solid; padding: 10px;">SignUp</h2></b></div>
       <div class="form">
 
         <form class="login-form" method="post" action="" name="myform">
@@ -144,7 +186,7 @@ require("config.php");
           <!-- <p id="err_mesg_usrnm">*Should contain at-least 6 characters</p> -->
 
           <input type="password" placeholder="Password*" id="psswd" name="pwd" required onkeyup="ValidatePsswd(this.id,'err_mesg_psswd')" />
-          <p id="err_mesg_psswd">*Feed strong Password</p>
+          <p id="err_mesg_psswd">*Password should contain Special symbols,Numbers and Alphabets</p>
 
           <button type="submit" name="signup" value="signup" id="btn">SignUp</button>
           <p class="message">Already registered? <a href="Login.html">Log In</a></p>
@@ -156,22 +198,23 @@ require("config.php");
     </div>
 
   </div>
+    
   <!--end log form -->
 
   </div> <!-- main-content closing -->
   <!-- <br style=" border:2px solid black;"> -->
 
-
+<div class="col-md-12" style="border: 10px solid white ;"></div>
   <!-- Footer should be same in all form except the user registration form -->
 
-  <footer class="footer">
+  <footer class="footer" style="margin-top: 20px;">
     <div class="footer-div">
       <br style="width: 50px; border:2px solid black;">
 
       <div class="row1">
 
         <!-- <br style="width: 50px; border:2px solid black;"> -->
-        <section id="hours" style="text-align: center;color: red;">
+        <section id="hours" style="text-align: center;color: red; margin-top: 20px;">
           This Site is more useful for recharge facilities
         </section>
 
