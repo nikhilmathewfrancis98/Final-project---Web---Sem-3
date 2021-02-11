@@ -84,24 +84,24 @@ require("config.php");
 
     $countusr = mysqli_num_rows($queryUsr);
 
-    if ($countusr < 1) 
+    if ($countusr < 1)
     {
         $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
         $count = mysqli_num_rows($query);
 
-        if ($count == 1) 
+        if ($count == 1)
         {
           $maxid = mysqli_fetch_array($query);
           $Cid = $maxid['max'] + 1;
           $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
           $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
-        } 
-        else 
+        }
+        else
         {
           echo "<font color='red'>error</font><br/>";
         }
-    } 
-    else 
+    }
+    else
     {
 
   ?>
@@ -189,7 +189,7 @@ require("config.php");
           <p id="err_mesg_psswd">*Password should contain Special symbols,Numbers and Alphabets</p>
 
           <button type="submit" name="signup" value="signup" id="btn">SignUp</button>
-          <p class="message">Already registered? <a href="Login.html">Log In</a></p>
+          <p class="message">Already registered? <a href="Login.php">Log In</a></p>
 
         </form>
 
@@ -198,7 +198,7 @@ require("config.php");
     </div>
 
   </div>
-    
+
   <!--end log form -->
 
   </div> <!-- main-content closing -->
