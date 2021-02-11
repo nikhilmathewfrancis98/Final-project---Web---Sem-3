@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,6 +19,34 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    function loadDish(type,offertype){
+     $.ajax({
+       url : "getoffer.php",
+       type : "POST",
+       data :{type : type ,id : offertype},
+       success : function(data){
+         if(type == "offerinfo")
+         {
+           $("#offer").html(data);
+         }else{
+           $("#dth").append(data);
+         }
+
+       }
+
+     });
+    }
+    loadDish();
+    $("#dth").on("change",function(){
+      var dth = $("#dth").val();
+      loadDish("offerinfo",dth);
+    })
+
+  });
+</script>
   </head>
 <body>
   <header>
@@ -56,42 +87,35 @@
       <form class="rechrge-form">
           <div>
        <span> <label for="dth" style="color: aliceblue;">Select Dth type</label></span>
-    <span> <select id="dth" name="dth_types">
-            <option value="#">Select</option>
-          <option value="#">Tata Sky</option>
-          <option value="#">Videocone</option>
-          <option value="#">Sun Direct</option>
-          <option value="#">Airtel</option>
+    <span>  <select id="dth" name="dth_types">
+            <option value=" ">Select DTH</option>
+
         </select>
         </span>
     </div><br>
         <div>
        <span> <label for="offer" style="color: aliceblue;">Offers</label></span>
     <span>  <select id="offer" name="offer_types">
-            <option value="#">Select</option>
-          <option value="#">#</option>
-          <option value="#">#</option>
-          <option value="#">#</option>
-          <option value="#">#</option>
+            <option value disabled selected>Select offer</option>
         </select>
        </span>
     </div>
     <br>
-    
+
         <div>
         <span></span><label for="amt" style="color: aliceblue;">Amount</label></span>
     <span> <input type="text" placeholder="Amount" id="amt"/></span>
     </div>
     <br>
-        
+
         <p class="pmt_dtsl" style="color: aliceblue;">
-            
+
             Payment Details
         </p>
         <br>
-        
+
         <button>Recharge</button>
-        
+
       </form>
     </div>
   </div>
