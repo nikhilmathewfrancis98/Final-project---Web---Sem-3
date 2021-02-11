@@ -35,7 +35,7 @@ require("config.php");
 
 <body>
   <header>
-    <nav id="header-nav" class="navbar navbar-default">
+    <nav id="header-nav" class="navbar navbar-default" style="margin: 0px;">
       <div class="container">
         <div class="navbar-header">
           <div class="navbar-brand">
@@ -84,30 +84,40 @@ require("config.php");
 
     $countusr = mysqli_num_rows($queryUsr);
 
-    if ($countusr < 1) 
-    {
-        $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
-        $count = mysqli_num_rows($query);
+    if ($countusr < 1) {
+      $query = mysqli_query($mysqli, "SELECT MAX(C_Id) as max from customer");
+      $count = mysqli_num_rows($query);
 
-        if ($count == 1) 
-        {
-          $maxid = mysqli_fetch_array($query);
-          $Cid = $maxid['max'] + 1;
-          $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
-          $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
-          header("location:Login.php");
-        } 
-        else 
-        {
-          echo "<font color='red'>error</font><br/>";
-        }
-    } 
-    else 
-    {
-
+      if ($count == 1) {
+        $maxid = mysqli_fetch_array($query);
+        $Cid = $maxid['max'] + 1;
+        $result = mysqli_query($mysqli, "INSERT INTO customer(C_Id,C_Name,Age,Gender,PhoneNo,email) VALUES('$Cid','$name',' $dob','$gender','$phone','$email')");
+        $result2 = mysqli_query($mysqli, "INSERT INTO users(U_Id,username,password,type) VALUES('$Cid','$username','$password','cust')");
+        // $Message = "Registration successful";
   ?>
 
-      <div class="col-md-12 mx-auto" >
+        <!--  <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" onclick="redirect_fn()">&times;</button>
+          <strong>Successfully Registered</strong>
+        </div> -->
+        <script>
+          window.confirm('Registration Successful') 
+            window.location = "Login.php";
+          
+          
+          
+        </script>
+      <?php
+        //header("Location:Login.php");
+      } else {
+        echo "<font color='red'>error</font><br/>";
+      }
+    } else {
+
+      ?>
+
+
+      <div class="col-md-12 mx-auto">
         <div class="alert alert-danger alert-dismissible text-center">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <strong style="background-color:white;">User already exists with this Username </strong>
@@ -158,7 +168,11 @@ require("config.php");
 
     <div class="login-page">
 
- <div style="width: 100%; display: flex;justify-content: center;"><b><h2 class="text-center" style="width: 120px; background-color: lightblue; font-style:italic; font-weight: 500; border: 1px solid; padding: 10px;">SignUp</h2></b></div>
+      <div style="width: 100%; display: flex;justify-content: center;"><b>
+          <h2 class="text-center" style="width: 120px; background-color: lightblue; font-style:italic; font-weight: 500; border: 1px solid; padding: 10px;">
+            SignUp
+          </h2>
+        </b></div>
       <div class="form">
 
         <form class="login-form" method="post" action="" name="myform">
@@ -187,9 +201,10 @@ require("config.php");
           <!-- <p id="err_mesg_usrnm">*Should contain at-least 6 characters</p> -->
 
           <input type="password" placeholder="Password*" id="psswd" name="pwd" required onkeyup="ValidatePsswd(this.id,'err_mesg_psswd')" />
-          <p id="err_mesg_psswd">*Password should contain Special symbols,Numbers and Alphabets</p>
+          <p id="err_mesg_psswd">*Password should be in Alphabets, Numbers and Special symbols hierarchy</p>
 
           <button type="submit" name="signup" value="signup" id="btn">SignUp</button>
+
           <p class="message">Already registered? <a href="Login.html">Log In</a></p>
 
         </form>
@@ -199,16 +214,19 @@ require("config.php");
     </div>
 
   </div>
-    
+
   <!--end log form -->
 
   </div> <!-- main-content closing -->
   <!-- <br style=" border:2px solid black;"> -->
+  <div style="width: 100px; display:flex; justify-content: center;">
+    <div class="col-sm-12 align-content-center" style="border: 1px solid white;padding:0 25% 0 25%;">
 
-<div class="col-md-12" style="border: 10px solid white ;"></div>
+    </div>
+  </div>
   <!-- Footer should be same in all form except the user registration form -->
 
-  <footer class="footer" style="margin-top: 20px;">
+  <footer class="footer">
     <div class="footer-div">
       <br style="width: 50px; border:2px solid black;">
 
@@ -229,6 +247,9 @@ require("config.php");
   </footer>
 
 
+
+  
+ 
   <!-- jQuery (Bootstrap JS plugins depend on it) -->
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

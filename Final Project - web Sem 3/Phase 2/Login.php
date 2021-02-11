@@ -21,8 +21,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 <body>
-  <header>
-    <nav id="header-nav" class="navbar navbar-default">
+  
+    <nav id="header-nav" class="navbar navbar-default" style="margin: 0px;">
       <div class="container">
         <div class="navbar-header">
          <div class="navbar-brand">
@@ -52,16 +52,16 @@
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
-  </header>
+  
 
   <!-- PHP BEGIN -->
-  
+
   <?php
     $error = $error_login = $error_username = $error_password = "";
     if(isset($_REQUEST['login'])){
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
-		
+
         if(empty($username) || empty($password)){
             if(empty($username)){
 				echo '<script>alert("Wrong info")</script>';
@@ -91,8 +91,15 @@
 					}
                 }
                 else{
-					echo '<script>alert("Wrong info")</script>';
-                    $error_login = "Invalid login data, check username or password";
+                  ?>
+
+                      <div class="col-md-12 mx-auto" >
+                        <div class="alert alert-danger alert-dismissible text-center">
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                          <strong style="background-color:white;"> username and password combination doesn't match!!! </strong>
+                        </div>
+                      </div>
+                    <?php
                 }
             }
         }
@@ -106,8 +113,8 @@
     <div class="form">
 
       <form class="login-form">
-        <input type="text" placeholder="username" name="username"/>
-        <input type="password" placeholder="password" name="password"/>
+        <input type="text" placeholder="username" name="username" required/>
+        <input type="password" placeholder="password" name="password" required/>
         <button type="submit" name="login" value="login">login</button>
         <p class="message">Not registered? <a href="Signup.php">Create an account</a></p>
       </form>
@@ -117,8 +124,11 @@
 </form><!--end log form -->
 
         </div> <!-- main-content closing -->
-<br style="width: 50px; border:2px solid black;">
+<div style="width: 100px; display:flex; justify-content: center;">
+    <div class="col-sm-12 align-content-center" style="border: 1px solid white;padding:0 25% 0 25%;">
 
+    </div>
+  </div>
 
 
 

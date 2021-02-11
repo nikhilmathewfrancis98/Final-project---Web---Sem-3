@@ -24,7 +24,7 @@ body {
 
   
   .navbar-brand {
-    padding-top: 25px;
+      padding-top: 25px;
   }
   
   .navbar-brand h1 { /* Site name */
@@ -63,8 +63,7 @@ border: #222;
   #nav-list a span {
     font-size: 1.8em;
   }
-  
-
+ 
   
   .navbar-header button.navbar-toggle, .navbar-header .icon-bar {
     border: 1px solid #61122f;

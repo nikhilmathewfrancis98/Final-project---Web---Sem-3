@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dish Tv Recharge</title>
     <link  href="css/bootstrap.min.css">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,7 +29,7 @@ select
   padding: 12px;
   border-radius: 3px;
   width: 250px;
-  outline:none; 
+  outline:none;
   appearance: none;
   padding-right: 2em;
 
@@ -72,13 +72,13 @@ select
               <a href="#">
                 <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Profile</a>
             </li>
-            
+
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  
+
    <!-- PHP BEGIN -->
   <?php
     $error = $error_login = $error_username = $error_password = "";
@@ -87,23 +87,23 @@ select
 		$details = $_REQUEST['det'];
 		$price =$_REQUEST['price'];
 		$dishtv=$_REQUEST['dish'];
-		  
+
           $query = mysqli_query($mysqli, "SELECT MAX(Offer_Id) as max from offers");
 		  $count = mysqli_num_rows($query);
                 if($count == 1){
                     $maxid = mysqli_fetch_array($query);
 					$Cid = $maxid['max']+1;
-					
+
 				}
 				else
-				{ 
+				{
 				      $Cid=1;
 				}
-				$result = mysqli_query($mysqli, "INSERT INTO offers(Offer_Id,D_Id,price,OfferDetails) VALUES('$Cid','$dishtv','$price','$details')");
-					 
+				$result = mysqli_query($mysqli, "INSERT INTO offers(Offer_Id,Offer_Name,D_Id,price,OfferDetails) VALUES('$Cid','$name','$dishtv','$price','$details')");
+
         }
         ?>
-  
+
   <!-- PHP END -->
   
   <!-- Main content -->
@@ -112,7 +112,7 @@ select
   <div><input type="text" name="name" placeholder="Offer Name"></div><br>
   <?php
     $dish  =  mysqli_query($mysqli, "SELECT D_Id,D_name from dish");
-        echo"<div>";      
+        echo"<div>";
         echo "<select name=dish>";
                 echo"<option value='' disabled selected style='color:grey'>DISH</option>";
 				while ($row = mysqli_fetch_assoc($dish)) {
@@ -140,7 +140,7 @@ select
 
       <div class="row1">
 
-         <br style="width: 50px; border:2px solid black;"> 
+         <br style="width: 50px; border:2px solid black;">
         <section id="hours" style="text-align: center;color: red;">
          This  Site is more usefull for recharge facilities
         </section>

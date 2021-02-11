@@ -56,7 +56,7 @@ select option:first-child{
   padding-right: 2em;
 }
 
-&:invalid {
+.invalid {
     color: gray;
   }
 
@@ -64,11 +64,5 @@ select option:first-child{
   [disabled] {
     color: gray;
   }
-
-  option {
-    color: $default-color;
-  
-  }
-
 
 
