@@ -31,7 +31,11 @@
          if(type == "offerinfo")
          {
            $("#offer").html(data);
-         }else{
+         }else if(type == "offerprice")
+         {
+           $("#amt").html(data);
+         }
+         else{
            $("#dth").append(data);
          }
 
@@ -43,8 +47,11 @@
     $("#dth").on("change",function(){
       var dth = $("#dth").val();
       loadDish("offerinfo",dth);
-    })
-
+    });
+    $("#offer").on("change",function(){
+      var offer = $("#offer").val();
+      loadDish("offerprice",offer);
+    });
   });
 </script>
   </head>
@@ -96,6 +103,7 @@
         <div>
        <span> <label for="offer" style="color: aliceblue;">Offers</label></span>
     <span>  <select id="offer" name="offer_types">
+
             <option value disabled selected>Select offer</option>
         </select>
        </span>
@@ -104,14 +112,14 @@
 
         <div>
         <span></span><label for="amt" style="color: aliceblue;">Amount</label></span>
-    <span> <input type="text" placeholder="Amount" id="amt"/></span>
+    <span> <select id="amt" name="amt">
+            <option value disabled>Price</option>
+        </select></span>
     </div>
     <br>
-
-        <p class="pmt_dtsl" style="color: aliceblue;">
-
-            Payment Details
-        </p>
+          <span></span><label for="dtl" style="color: aliceblue;">Details</label></span>
+        <input type="text" id="dtl" value=" " style="color: aliceblue;">
+        </input>
         <br>
 
         <button>Recharge</button>

@@ -6,7 +6,7 @@
   margin: auto;
 }
 
-.form input,select,option {
+.form input,select,option,textarea {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -58,4 +58,3 @@ select option:first-child{
   option {
     color: $default-color;
   }
-

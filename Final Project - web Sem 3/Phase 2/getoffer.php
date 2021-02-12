@@ -19,14 +19,28 @@ if($_POST['type']==""){
 
   $query = mysqli_query($conn,$sql) or die ("Query Unsuccessful");
 
-  $str =" ";
+  $str ="<option value disabled selected>Select offer</option>";
 
   while($row = mysqli_fetch_assoc($query)){
   $str .= "<option value='{$row['Offer_Id']}'>{$row['Offer_Name']}</option>";
 
   }
 
+}elseif ($_POST['type']=="offerprice") {
+
+  $sql = "select * from offers where Offer_Id = {$_POST['id']}";
+
+  $query = mysqli_query($conn,$sql) or die ("Query Unsuccessful");
+
+  $str ="<option value disabled selected>choose Price</option>";
+
+  while($row = mysqli_fetch_assoc($query)){
+  $str .= "<option value='{$row['price']}'>{$row['price']}</option>";
+
+  }
+
 }
+
 
 
  echo $str;

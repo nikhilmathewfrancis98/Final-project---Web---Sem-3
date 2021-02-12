@@ -96,19 +96,16 @@ require("config.php");
         // $Message = "Registration successful";
   ?>
 
-        <!--  <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" onclick="redirect_fn()">&times;</button>
-          <strong>Successfully Registered</strong>
-        </div> -->
+
         <script>
-          window.confirm('Registration Successful') 
+          window.confirm('Registration Successful')
             window.location = "Login.php";
-          
-          
-          
+
+
+
         </script>
       <?php
-        //header("Location:Login.php");
+        
       } else {
         echo "<font color='red'>error</font><br/>";
       }
@@ -123,36 +120,6 @@ require("config.php");
           <strong style="background-color:white;">User already exists with this Username </strong>
         </div>
       </div>
-
-
-
-      <!--  <div class="alert alert-warning alert-dismissible fade show">
-        <h4 class="alert-heading"><i class="fa fa-warning"></i> Warning!</h4>
-        <p>Please enter a valid value in all the required fields before proceeding. If you need any help just place the mouse pointer above info icon next to the form field.</p>
-        <hr>
-        <p class="mb-0">Once you have filled all the details, click on the 'Next' button to continue.</p>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-      </div> -->
-
-      <!-- <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Registration Status:</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              You have registered successfully !
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div> -->
-      <!-- <script> alert ("User already exists");</script> -->
-
   <?php
     }
   }
@@ -248,8 +215,8 @@ require("config.php");
 
 
 
-  
- 
+
+
   <!-- jQuery (Bootstrap JS plugins depend on it) -->
   <script src="js/jquery-2.1.4.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
