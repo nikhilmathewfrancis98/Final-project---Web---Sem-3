@@ -34,6 +34,9 @@
          }else if(type == "offerprice")
          {
            $("#amt").html(data);
+         }else if(type == "offerdet")
+         {
+           $("#Details").html(data);
          }
          else{
            $("#dth").append(data);
@@ -51,6 +54,10 @@
     $("#offer").on("change",function(){
       var offer = $("#offer").val();
       loadDish("offerprice",offer);
+    });
+    $("#offer").on("change",function(){
+      var offer = $("#offer").val();
+      loadDish("offerdet",offer);
     });
   });
 </script>
@@ -117,10 +124,14 @@
         </select></span>
     </div>
     <br>
-          <span></span><label for="dtl" style="color: aliceblue;">Details</label></span>
-        <input type="text" id="dtl" value=" " style="color: aliceblue;">
-        </input>
-        <br>
+    <div>
+
+    <span></span><label for="Details" style="color: aliceblue;">Offer Details</label></span>
+<span> <select id="Details" name="Details"  style="text-overflow:ellipsis;white-space:nowrap;">
+        <option value disabled>DETAILS</option>
+    </select></span>
+</div>
+<br>
 
         <button>Recharge</button>
 
