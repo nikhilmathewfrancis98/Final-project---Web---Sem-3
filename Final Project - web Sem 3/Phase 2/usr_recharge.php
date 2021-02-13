@@ -91,8 +91,36 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
+  <!--php -->
+  <?php
+    if(isset($_REQUEST['Recharge'])){
+      $dish = $_REQUEST['dth_types'];
+      $offer = $_REQUEST['offer_types'];
+      $Date = date('Y-m-d');
+      $Cid = $_SESSION['U_Id'];
+      $query1 = mysqli_query($mysqli, "SELECT MAX(R_Id) as max from recharge");
+      $count = mysqli_num_rows($query1);
+      if ($count >= 0) {
+        $maxid = mysqli_fetch_array($query1);
+        $rid = $maxid['max'] + 1;
+        $result = mysqli_query($mysqli, "INSERT INTO recharge(R_Id,C_Id,D_Id,R_date,OfferID) VALUES('$rid','$Cid',' $dish','$Date','$offer')");
+
+        ?>
 
 
+              <script>
+                window.confirm('Recharge Successful')
+                  window.location = "User_page.html";
+
+
+
+              </script>
+            <?php
+
+      }
+
+    }
+      ?>
   <!-- Main content -->
   <div id="main-content" style="width: 100%;height: 900px;" >
     <div class="Rechrg_detls">
@@ -133,7 +161,7 @@
 </div>
 <br>
 
-        <button>Recharge</button>
+        <button type="submit" name="Recharge" value="Recharge">Recharge</button>
 
       </form>
     </div>
