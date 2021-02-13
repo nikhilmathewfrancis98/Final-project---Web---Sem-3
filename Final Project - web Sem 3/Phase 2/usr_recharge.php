@@ -143,16 +143,16 @@
 
       <form class="rechrge-form">
           <div>
-       <span> <label for="dth" style="color: aliceblue;">Select Dth type</label></span>
-    <span>  <select id="dth" name="dth_types">
-            <option value=" ">Select DTH</option>
+       <span> <label for="dth" style="color: aliceblue;" >Select Dth type</label></span>
+    <span>  <select id="dth" name="dth_types" required>
+            <option value disabled selected>Select DTH</option>
 
         </select>
         </span>
     </div><br>
         <div>
-       <span> <label for="offer" style="color: aliceblue;">Offers</label></span>
-    <span>  <select id="offer" name="offer_types">
+       <span> <label for="offer" style="color: aliceblue;" >Offers</label></span>
+    <span>  <select id="offer" name="offer_types" required>
 
             <option value disabled selected>Select offer</option>
         </select>
@@ -162,7 +162,7 @@
 
         <div>
         <span></span><label for="amt" style="color: aliceblue;">Amount</label></span>
-    <span> <select id="amt" name="amt">
+    <span> <select id="amt" name="amt" required>
             <option value disabled selected>Price</option>
         </select></span>
     </div>
