@@ -97,8 +97,8 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class="fa fa-user"></i></span><br>User Profile</a>
+              <a href="logout.php">
+                <span><i class="fa fa-user"></i></span><br>Log Out</a>
             </li>
 
           </ul><!-- #nav-list -->
@@ -124,7 +124,7 @@
 
 
               <script>
-                window.confirm('Recharge Successful')
+                window.confirm('Recharge Successful');
                   window.location = "User_page.html";
 
 

@@ -1,3 +1,6 @@
+<?php session_start();
+    require("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,8 +40,8 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class="fa fa-user"></i></span><br>User Sign In</a>
+              <a href="logout.php">
+                <span><i class="fa fa-user"></i></span><br>Log Out</a>
             </li>
 
           </ul><!-- #nav-list -->
@@ -47,26 +50,68 @@
     </nav><!-- #header-nav -->
   </header>
 
+  <?php
+    if(isset($_REQUEST['feedback'])){
+      $rid = $_REQUEST['recharge'];
+      $feed = $_REQUEST['usr_fedback'];
+      $query = mysqli_query($mysqli, "SELECT MAX(F_Id) as max from feedback");
+      $count = mysqli_num_rows($query);
+      if ($count >= 0) {
+        $maxid = mysqli_fetch_array($query);
+        $fid = $maxid['max'] + 1;
+        $result = mysqli_query($mysqli, "INSERT INTO feedback(F_Id,R_Id,Feedback) VALUES('$fid','$rid',' $feed')");
 
+        ?>
+
+
+              <script>
+                window.confirm('feedback given');
+                  window.location = "User_page.html";
+
+
+
+              </script>
+            <?php
+
+      }
+
+    }
+      ?>
   <!-- Main content -->
   <div id="main-content" style="width: 100%;height: 900px;" >
     <div class="Rechrg_detls">
     <div class="form" style="width: 500px;height: 700px; margin-left: 400px; padding-top: 80px;" >
 
       <form class="rechrge-form">
-     
-    
+
+
     <br>
-    
+    <div>
+
+    <span></span><label for="Details" style="color: aliceblue;">choose recharge</label></span>
+<span> <?php
+      $c=$_SESSION['U_Id'];
+      $rec  =  mysqli_query($mysqli, "SELECT * from recharge inner join offers on recharge.OfferID = offers.Offer_Id where C_Id=$c");
+      echo"<div>";
+      echo "<select name=recharge required>";
+              echo"<option value='' disabled selected style='color:grey'>Choose recharge</option>";
+      while ($row = mysqli_fetch_assoc($rec)) {
+              echo"<option value=$row[R_Id]>$row[Offer_Name]</option>";
+              }
+      echo"</select>";
+  echo"</div><br>";
+  ?></span>
+</div>
+<br>
         <div>
-        <span></span><label for="amt" style="color: aliceblue;">Submit Feedback</label></span>
-    <span> <input type="textarea" placeholder="Enter Feedback here" id="usr_fedback"/></span>
+        <span></span><label for="amt" style="color: aliceblue;" >Submit Feedback</label></span>
+    <span> <input type="textarea" placeholder="Enter Feedback here" id="usr_fedback" name="usr_fedback" required/></span>
     </div>
     <br>
         <br>
-        
-        <button id="submit">Submit</button>
-        
+
+        <button type="submit" name="feedback">Submit</button>
+
       </form>
     </div>
   </div>
