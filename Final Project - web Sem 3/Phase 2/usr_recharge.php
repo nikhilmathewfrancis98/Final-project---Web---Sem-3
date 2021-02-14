@@ -31,7 +31,14 @@
          if(type == "offerinfo")
          {
            $("#offer").html(data);
-         }else{
+         }else if(type == "offerprice")
+         {
+           $("#amt").html(data);
+         }else if(type == "offerdet")
+         {
+           $("#Details").html(data);
+         }
+         else{
            $("#dth").append(data);
          }
 
@@ -43,9 +50,31 @@
     $("#dth").on("change",function(){
       var dth = $("#dth").val();
       loadDish("offerinfo",dth);
-    })
-
+    });
+    $("#offer").on("change",function(){
+      var offer = $("#offer").val();
+      loadDish("offerprice",offer);
+    });
+    $("#offer").on("change",function(){
+      var offer = $("#offer").val();
+      loadDish("offerdet",offer);
+    });
   });
+
+  $(function () {
+        $("#payment").change(function () {
+            if ($(this).val() == "1") {
+                $("#upi").show();
+                $("#credit").hide();
+            } else if ($(this).val() == "2") {
+                $("#credit").show();
+                $("#upi").hide();
+            }else {
+                $("#upi").hide();
+                $("#credit").hide();
+            }
+        });
+    });
 </script>
   </head>
 <body>
@@ -68,8 +97,8 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class="fa fa-user"></i></span><br>User Profile</a>
+              <a href="logout.php">
+                <span><i class="fa fa-user"></i></span><br>Log Out</a>
             </li>
 
           </ul><!-- #nav-list -->
@@ -77,8 +106,36 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
+  <!--php -->
+  <?php
+    if(isset($_REQUEST['Recharge'])){
+      $dish = $_REQUEST['dth_types'];
+      $offer = $_REQUEST['offer_types'];
+      $Date = date('Y-m-d');
+      $Cid = $_SESSION['U_Id'];
+      $query1 = mysqli_query($mysqli, "SELECT MAX(R_Id) as max from recharge");
+      $count = mysqli_num_rows($query1);
+      if ($count >= 0) {
+        $maxid = mysqli_fetch_array($query1);
+        $rid = $maxid['max'] + 1;
+        $result = mysqli_query($mysqli, "INSERT INTO recharge(R_Id,C_Id,D_Id,R_date,OfferID) VALUES('$rid','$Cid',' $dish','$Date','$offer')");
+
+        ?>
 
 
+              <script>
+                window.confirm('Recharge Successful');
+                  window.location = "User_page.html";
+
+
+
+              </script>
+            <?php
+
+      }
+
+    }
+      ?>
   <!-- Main content -->
   <div id="main-content" style="width: 100%;height: 900px;" >
     <div class="Rechrg_detls">
@@ -86,16 +143,17 @@
 
       <form class="rechrge-form">
           <div>
-       <span> <label for="dth" style="color: aliceblue;">Select Dth type</label></span>
-    <span>  <select id="dth" name="dth_types">
-            <option value=" ">Select DTH</option>
+       <span> <label for="dth" style="color: aliceblue;" >Select Dth type</label></span>
+    <span>  <select id="dth" name="dth_types" required>
+            <option value disabled selected>Select DTH</option>
 
         </select>
         </span>
     </div><br>
         <div>
-       <span> <label for="offer" style="color: aliceblue;">Offers</label></span>
-    <span>  <select id="offer" name="offer_types">
+       <span> <label for="offer" style="color: aliceblue;" >Offers</label></span>
+    <span>  <select id="offer" name="offer_types" required>
+
             <option value disabled selected>Select offer</option>
         </select>
        </span>
@@ -104,17 +162,44 @@
 
         <div>
         <span></span><label for="amt" style="color: aliceblue;">Amount</label></span>
-    <span> <input type="text" placeholder="Amount" id="amt"/></span>
+    <span> <select id="amt" name="amt" required>
+            <option value disabled selected>Price</option>
+        </select></span>
     </div>
     <br>
+    <div>
 
-        <p class="pmt_dtsl" style="color: aliceblue;">
+    <span></span><label for="Details" style="color: aliceblue;">Offer Details</label></span>
+<span> <select id="Details" name="Details"  style="text-overflow:ellipsis;white-space:nowrap;">
+        <option value disabled selected>DETAILS</option>
+    </select></span>
+</div>
+<br>
+<div>
+        <span></span><label for="conid" style="color: aliceblue;">Consumer Number</label></span>
+    <span> <input type="text" placeholder="consumer number" id="conid" required/></span>
+    </div>
+    <br>
+    <div>
 
-            Payment Details
-        </p>
-        <br>
+    <span></span><label for="payment" style="color: aliceblue;">Payment Mode</label></span>
+<span> <select id="payment" name="payment">
+        <option value disabled selected>choose payment</option>
+        <option value="1">upi</option>
+        <option value="2">credit/debit card</option>
+    </select></span>
+</div>
+<br>
+<div id="credit" style="display: none">
+    <label for="txtcredit" style="color: aliceblue;">Credit/Debit card number</label>
+    <input type="text" id="txtcredit" />
+</div>
+<div id="upi" style="display: none">
+  <label for="txtupi" style="color: aliceblue;">UPI ID</label>
+    <input type="text" id="txtupi" />
+</div>
 
-        <button>Recharge</button>
+        <button type="submit" name="Recharge" value="Recharge">Recharge</button>
 
       </form>
     </div>

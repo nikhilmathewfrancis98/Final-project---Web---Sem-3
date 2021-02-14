@@ -9,7 +9,7 @@ if($_POST['type']==""){
   $str =" ";
 
   while($row = mysqli_fetch_assoc($query)){
-  $str .= "<option value='{$row['D_Id']}'>{$row['D_name']}</option>";
+  $str .= "<option value='{$row['D_Id']}'>{$row['D_Name']}</option>";
 
   }
 
@@ -19,14 +19,39 @@ if($_POST['type']==""){
 
   $query = mysqli_query($conn,$sql) or die ("Query Unsuccessful");
 
-  $str =" ";
+  $str ="<option value disabled selected>Select offer</option>";
 
   while($row = mysqli_fetch_assoc($query)){
   $str .= "<option value='{$row['Offer_Id']}'>{$row['Offer_Name']}</option>";
 
   }
 
+}elseif ($_POST['type']=="offerprice") {
+
+  $sql = "select * from offers where Offer_Id = {$_POST['id']}";
+
+  $query = mysqli_query($conn,$sql) or die ("Query Unsuccessful");
+
+  while($row = mysqli_fetch_assoc($query)){
+  $str .= "<option value='{$row['price']}' selected>{$row['price']}</option>";
+
+  }
+
+
+}elseif ($_POST['type']=="offerdet") {
+
+  $sql = "select * from offers where Offer_Id = {$_POST['id']}";
+
+  $query = mysqli_query($conn,$sql) or die ("Query Unsuccessful");
+
+  while($row = mysqli_fetch_assoc($query)){
+  $str .= "<option value='' selected>{$row['OfferDetails']}</option>";
+
+  }
+
+
 }
+
 
 
  echo $str;

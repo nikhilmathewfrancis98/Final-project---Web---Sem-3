@@ -1,6 +1,3 @@
-<?php session_start();
-    require("config.php");
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,9 +11,8 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="style.php">
-  <link rel="stylesheet" type="text/css" href="adminpage.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="adminpage.css">
+<link rel="stylesheet" type="text/css" href="style.php">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -50,85 +46,52 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  <!-- PHP session-->
-  <?php
-if (isset($_POST['submit']))
-{
-  $name=$_POST['name'];
-  $url=$_POST['url'];
-  $img=$_FILES['image'];
-
-  //print_r($img);
-
-  $filename=$img['name'];
-  $fileerror=$img['error'];
-  $filetmp=$img['tmp_name'];
-
-  $fileext=explode('.', $filename);
-  $filecheck=strtolower(end($fileext));
-
-  $fileextstored = array('jpg','png','jpeg');
-  if (in_array($filecheck, $fileextstored)) {
-  	$filedestination='storage/'.$filename;
-  	move_uploaded_file($filetmp, $filedestination);
-    $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
- 		  $count = mysqli_num_rows($query);
-      $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
-		  $count = mysqli_num_rows($query);
-                if($count == 1){
-                    $maxid = mysqli_fetch_array($query);
-					$did = $maxid['max']+1;
-				}
-				else
-				{ $did=1;
-			  }
-  	$sql="INSERT INTO `dish`(`D_Id`,`D_Name`, `D_Details`, `D_Image`) VALUES ('$did','$name','$url','$filedestination')";
-  $query=mysqli_query($mysqli,$sql);
-  if($query){
-  ?>
-         <script>
-          window.confirm('Operator added');
-            window.location = "adminpage.html";
-        </script>
-        <?php
-      }
-      else {
-        ?>
-               <script>
-                window.confirm('failed to add Operator');
-                  window.location = "adminpage.html";
-              </script>
-              <?php
-      }
-
-  }
-
-}
-
-?>
 
 
 
   <!-- Main content -->
-  <div>
-  <form action="" method="post" enctype="multipart/form-data">
-  <div><input type="text" name="name" placeholder="Operator Name"required/></div><br>
-  <div><input type="url" name="url" placeholder="Website" required/></div><br>
-    <div class="file-field">
-    <div class="btn-logo">
-      <span>Operator logo</span>
-      <input type="file" class="file" name="image" required/><!--<button value="upload"><i class="fa fa-upload" aria-hidden="true"></i> upload</button>-->
-    </div>
-  </div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <button class="btn_1" name="submit">Add</button>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <button class="btn_1" onclick="history.back()">Back</button>
+  <center>
+  	<br><br>
+		<?php
+		include 'config.php';
+		$sql="select * from offers inner join dish on offers.D_Id=dish.D_Id";
+		$query=mysqli_query($mysqli,$sql);
+    $count=mysqli_num_rows($query);
+		if ($count>0)
+		{
+      echo "<table>";
+    echo"<tr><th>Plan Id</th>";
+    echo"<th>Dish Name</th>";
+    echo"<th>Plan Name</th>";
+    echo"<th>Plan Details</th>";
+    echo"<th>Price</th>";
+    echo"<th></th>";
+    echo"<th></th></tr>";
+			while ($row= mysqli_fetch_array($query))
+			{
+				echo "<tr>
+              <td>".$row['Offer_Id']."</td>
+              <td>".$row['D_Name']."</td>
+              <td>".$row['Offer_Name']."</td>
+              <td>".$row['OfferDetails']."</td>
+              <td>".$row['price']."</td>
+              <td><a href=\"updateplan.php?pid=$row[Offer_Id]\" >Edit</a></td>
+              <td> <a href=\"delete.php?pid=$row[Offer_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
+			}
+		}
+		else
+			echo "<b><i>No plans</i></b>";
+    echo "</table>";
+		?>
+	<br><br>
+  <a href="adminpage.html"><button class="btn_1">Back</button></a>
+  </center>
 
-</form>
-</div>
-  <!--end log form -->
 
-        </div> <!-- main-content closing -->
+
+
+
+   <!-- main-content closing -->
 
 
  <!-- Footer should be same in all form except the user regestration form -->
