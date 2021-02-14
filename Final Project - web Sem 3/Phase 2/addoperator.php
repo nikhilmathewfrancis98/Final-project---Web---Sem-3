@@ -71,7 +71,8 @@ if (isset($_POST['submit']))
   if (in_array($filecheck, $fileextstored)) {
   	$filedestination='storage/'.$filename;
   	move_uploaded_file($filetmp, $filedestination);
-
+    $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
+ 		  $count = mysqli_num_rows($query);
   	$sql="INSERT INTO `dish`(`D_Name`, `D_Details`, `D_Image`) VALUES ('$name','$url','$filedestination')";
   $query=mysqli_query($mysqli,$sql);
   ?>
@@ -105,7 +106,7 @@ if(isset($_POST['Back']))
   </div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <button class="btn_1" name="submit">Add</button>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <button class="btn_1"><a href="adminpage.html">Back</a></button>
+ <button class="btn_1">Back</button>
 
 </form>
 </div>
