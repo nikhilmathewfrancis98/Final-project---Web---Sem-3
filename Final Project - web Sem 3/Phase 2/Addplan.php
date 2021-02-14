@@ -141,7 +141,7 @@ select
   <div><input type="number" name="price" placeholder="Amount"></div><br>
   <button class="btn" name="btn" value="submit"> Add</button>
   <button class="btn"value="reset"> cancel</button>
-  <button class="btn"> <a href="adminpage.html">Back</a></button>
+  <button class="btn" onclick="history.back()">Back</button>
 </form>
 </div>
   <!--end log form -->
