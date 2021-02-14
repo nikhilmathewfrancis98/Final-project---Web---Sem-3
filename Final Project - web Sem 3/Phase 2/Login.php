@@ -21,7 +21,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
 <body>
-  
+
     <nav id="header-nav" class="navbar navbar-default" style="margin: 0px;">
       <div class="container">
         <div class="navbar-header">
@@ -52,7 +52,7 @@
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
-  
+
 
   <!-- PHP BEGIN -->
 
@@ -80,7 +80,7 @@
 
                     $_SESSION['U_Id'] = $row['U_Id'];
                     $_SESSION['username'] = $row['username'];
-					$_SESSION['type'] = $row['type'];
+					          $_SESSION['type'] = $row['type'];
 					if($row['type']=='admin')
 					{
                     header("location:adminpage.html");

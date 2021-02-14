@@ -1,0 +1,99 @@
+  /** HEADER **/
+  #header-nav {
+    background-color: #f6b319;
+    border-radius: 0;
+    border: 0;
+    height: 100px;
+  }
+  
+
+*{
+    background-color: #61122f;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+
+
+body {
+    font-size: 16px;
+    /* color: #fff; */
+  
+    font-family: 'Oxygen', sans-serif;
+  }
+  
+
+  
+  .navbar-brand {
+    padding-top: 25px;
+  }
+  
+  .navbar-brand h1 { /* Site name */
+    font-family: 'Lora', serif;
+    color: #557c3e;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #222;
+    margin-top: 10;
+    margin-bottom: 0;
+    line-height: .75;
+  }
+  .navbar-brand a:hover, .navbar-brand a:focus {
+    text-decoration: none;
+  }
+
+ .navbar-header #collapsable-nav {
+border: #222;
+  }
+ 
+ 
+   #nav-list {
+    margin-top: 10px;
+
+  }
+  #nav-list a {
+    color: #fdfdfd;
+    text-align: center;
+    
+  }
+  #nav-list a:hover {
+    background: #136901;
+   
+  }
+  #nav-list a span {
+    font-size: 1.8em;
+  }
+  
+
+  
+  .navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+    border: 1px solid #61122f;
+  }
+  .navbar-header button.navbar-toggle {
+    clear: both;
+    margin-top: -30px;
+  }
+  /* END HEADER */
+
+
+  /* FOOTER */
+.footer {
+  margin-bottom: 50px;
+  background-color: #222;
+  /*border-top: 2px solid black;*/
+  width: 100%;
+}
+
+
+/* END FOOTER */
+
+#dish #img1{
+  position: relative;
+  top: 50px;
+  left: 400px;
+  width: 600px;
+  height: 600px;
+  border: 1px 1px 1px 1px solid black; 
+
+}

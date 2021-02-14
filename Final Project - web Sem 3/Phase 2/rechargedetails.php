@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dish Tv Recharge</title>
     <link  href="css/bootstrap.min.css">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="Styles/rechargedetails.css">
-  <link rel="stylesheet" type="text/css" href="Styles/adminpage.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="adminpage.css">
+<link rel="stylesheet" type="text/css" href="style.php"/>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</style>
   </head>
 <body>
   <header>
@@ -41,41 +41,53 @@
               <a href="#">
                 <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Profile</a>
             </li>
-            
+
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  
-   
-  
+
+
+
   <!-- Main content -->
-  <div>
-  <form>
-    <section>
-      <!--
+  <center>
+  	<br><br>
+		<?php
+			include_once("config.php");
+
+			$sql="SELECT * from recharge inner join offers on recharge.OfferID = offers.Offer_Id";
+			$query=mysqli_query($mysqli,$sql);
+      $count=mysqli_num_rows($query);
+			if ($count>0)
+			{
+        echo "<table>";
+        echo"<tr><th>Recharge Id</th>";
+        echo"<th>Customer Id</th>";
+        echo"<th>Dish Id</th>";
+        echo"<th>Recharged date</th>";
+       echo"<th>Offer</th>";
+       echo"<th></th></tr>";
+				while ($row= mysqli_fetch_array($query))
+				{
+					echo "<tr><td>".$row['R_Id']."</td><td>".$row['C_Id']."</td><td>".$row['D_Id']."</td><td>".$row['R_date']."</td><td>".$row['Offer_Name'].
+          "</td><td> <a href=\"delete.php?rid=$row[R_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
+				}
+			}
+			else
+				echo "<b><i>No Recharges yet...</i></b>";
+      echo "</table>";
+		 ?>
+	<br><br>
+  <a href="adminpage.html"><button class="btn_1">Back</button></a>
+  </center>
 
 
 
 
 
-      -->
-    </section>
-  
-  <button class="btn">
-    <a href="addoperator.html" target="iframes">
-      <i class="fa fa-comment"></i>Feedback</a></button>
-  <button class="btn_1">
-    <a href="addoffer.html" target="iframes">
-      <i class="fa fa-reply"></i>Reply</a></button><br>
-  <iframe src="login.html" class="fram" name="iframes" width="700" height="400"></iframe>
 
-</form>
-</div>
-  <!--end log form -->
-
-        </div> <!-- main-content closing -->
+   <!-- main-content closing -->
 
 
  <!-- Footer should be same in all form except the user regestration form -->
@@ -85,7 +97,7 @@
 
       <div class="row1">
 
-         <br style="width: 50px; border:2px solid black;"> 
+         <br style="width: 50px; border:2px solid black;">
         <section id="hours" style="text-align: center;color: red;">
          This  Site is more usefull for recharge facilities
         </section>
