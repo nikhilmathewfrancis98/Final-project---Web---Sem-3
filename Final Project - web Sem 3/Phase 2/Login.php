@@ -139,7 +139,7 @@
 
 
 
- <!-- Footer should be same in all form except the user regestration form -->
+ <!-- Footer should be same in all form except the user registration form -->
 
   <footer class="footer">
     <div class="footer-div">
@@ -149,7 +149,7 @@
 
       	<!-- <br style="width: 50px; border:2px solid black;"> -->
         <section id="hours" style="text-align: center;color: red;">
-         This  Site is more usefull for recharge facilities
+         This  Site is more useful for recharge facilities
         </section>
 
         <section id="testimonials" style="text-align: center;color: red;">
