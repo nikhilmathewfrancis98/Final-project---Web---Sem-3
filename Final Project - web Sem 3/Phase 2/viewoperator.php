@@ -1,6 +1,3 @@
-<?php session_start();
-    require("config.php");
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,12 +11,12 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="style.php">
-  <link rel="stylesheet" type="text/css" href="adminpage.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="adminpage.css">
+<link rel="stylesheet" type="text/css" href="style.php"/>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</style>
   </head>
 <body>
   <header>
@@ -50,68 +47,50 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  <!-- PHP session-->
-  <?php
-if (isset($_POST['submit']))
-{
-  $name=$_POST['name'];
-  $url=$_POST['url'];
-  $img=$_FILES['image'];
-
-  //print_r($img);
-
-  $filename=$img['name'];
-  $fileerror=$img['error'];
-  $filetmp=$img['tmp_name'];
-
-  $fileext=explode('.', $filename);
-  $filecheck=strtolower(end($fileext));
-
-  $fileextstored = array('jpg','png','jpeg');
-  if (in_array($filecheck, $fileextstored)) {
-  	$filedestination='storage/'.$filename;
-  	move_uploaded_file($filetmp, $filedestination);
-
-  	$sql="INSERT INTO `dish`(`D_Name`, `D_Details`, `D_Image`) VALUES ('$name','$url','$filedestination')";
-  $query=mysqli_query($mysqli,$sql);
-  ?>
-          <script>
-          window.confirm('Operator added')
-            window.location = "adminpage.html";
-        </script>
-        <?php
-
-  }
-
-}
-if(isset($_POST['Back']))
-    {
-      header("location:adminpage.html");
-    }
-?>
 
 
 
   <!-- Main content -->
-  <div>
-  <form action="" method="post" enctype="multipart/form-data">
-  <div><input type="text" name="name" placeholder="Operator Name"required/></div><br>
-  <div><input type="url" name="url" placeholder="Website" required/></div><br>
-    <div class="file-field">
-    <div class="btn-logo">
-      <span>Operator logo</span>
-      <input type="file" class="file" name="image" required/><!--<button value="upload"><i class="fa fa-upload" aria-hidden="true"></i> upload</button>-->
-    </div>
-  </div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <button class="btn_1" name="submit">Add</button>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <button class="btn_1"><a href="adminpage.html">Back</a></button>
+  <center>
+  	<br><br>
+		<?php
+			include 'config.php';
+			$sql="SELECT `D_Id`, `D_Name`, `D_Details`, `D_Image` FROM `dish`";
+			$query=mysqli_query($mysqli,$sql) or die("No records");
+      $count=mysqli_num_rows($query);
+			if (mysqli_num_rows($query)>0)
+			{
+        echo "<table>";
+        echo"<tr><th>Dish Id</th>";
+        echo"<th>Name</th>";
+        echo"<th>Plan Details</th>";
+        echo"<th>Image</th>";
+       echo"<th></th>";
+       echo"<th></th></tr>";
+				while ($row= mysqli_fetch_array($query))
+				{
+					echo "<tr><td>".$row['D_Id']."</td>
+          <td>".$row['D_Name']."</td>
+          <td>".$row['D_Details']."</td>
+          <td><img src='".$row['D_Image']."'></td>
+          <td><a href=\"updateoperator.php?oid=$row[D_Id]\">Edit</a></td>
+          <td> <a href=\"delete.php?oid=$row[D_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
+				}
+			}
+			else
+				echo "<b><i>No Operators</i></b>";
+      echo "</table>";
+		 ?>
+	<br><br>
+  <a href="adminpage.html"><button class="btn_1">Back</button></a>
+  </center>
 
-</form>
-</div>
-  <!--end log form -->
 
-        </div> <!-- main-content closing -->
+
+
+
+
+   <!-- main-content closing -->
 
 
  <!-- Footer should be same in all form except the user regestration form -->

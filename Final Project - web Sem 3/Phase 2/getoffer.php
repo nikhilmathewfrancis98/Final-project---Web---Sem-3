@@ -9,7 +9,7 @@ if($_POST['type']==""){
   $str =" ";
 
   while($row = mysqli_fetch_assoc($query)){
-  $str .= "<option value='{$row['D_Id']}'>{$row['D_name']}</option>";
+  $str .= "<option value='{$row['D_Id']}'>{$row['D_Name']}</option>";
 
   }
 

@@ -14,12 +14,40 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="style.php">
-  <link rel="stylesheet" type="text/css" href="adminpage.css">
+  <link rel="stylesheet" type="text/css" href="Styles/addoffer.css">
+  <link rel="stylesheet" type="text/css" href="Styles/adminpage.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+select
+{
+  border: none;
+  appearance:none;
+  background: #f2f2f2;
+  padding: 12px;
+  border-radius: 3px;
+  width: 250px;
+  outline:none;
+  appearance: none;
+  padding-right: 2em;
+
+
+  &:invalid {
+    color: gray;
+  }
+
+
+  [disabled] {
+    color: gray;
+  }
+
+  option {
+    color: $default-color;
+  }
+}
+</style>
   </head>
 <body>
   <header>
@@ -50,63 +78,70 @@
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  <!-- PHP session-->
+
+   <!-- PHP BEGIN -->
   <?php
-if (isset($_POST['submit']))
-{
-  $name=$_POST['name'];
-  $url=$_POST['url'];
-  $img=$_FILES['image'];
+    $error = $error_login = $error_username = $error_password = "";
+    if(isset($_REQUEST['btn'])){
+        $name = $_REQUEST['name'];
+		$details = $_REQUEST['det'];
+		$price =$_REQUEST['price'];
+		$dishtv=$_REQUEST['dish'];
 
-  //print_r($img);
+          $query = mysqli_query($mysqli, "SELECT MAX(Offer_Id) as max from offers");
+		  $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $maxid = mysqli_fetch_array($query);
+					$Cid = $maxid['max']+1;
 
-  $filename=$img['name'];
-  $fileerror=$img['error'];
-  $filetmp=$img['tmp_name'];
-
-  $fileext=explode('.', $filename);
-  $filecheck=strtolower(end($fileext));
-
-  $fileextstored = array('jpg','png','jpeg');
-  if (in_array($filecheck, $fileextstored)) {
-  	$filedestination='storage/'.$filename;
-  	move_uploaded_file($filetmp, $filedestination);
-
-  	$sql="INSERT INTO `dish`(`D_Name`, `D_Details`, `D_Image`) VALUES ('$name','$url','$filedestination')";
-  $query=mysqli_query($mysqli,$sql);
-  ?>
-          <script>
-          window.confirm('Operator added')
-            window.location = "adminpage.html";
-        </script>
-        <?php
-
-  }
-
-}
-if(isset($_POST['Back']))
-    {
-      header("location:adminpage.html");
-    }
-?>
+				}
+				else
+				{
+				      $Cid=1;
+				}
+				$result = mysqli_query($mysqli, "INSERT INTO offers(Offer_Id,Offer_Name,D_Id,price,OfferDetails) VALUES('$Cid','$name','$dishtv','$price','$details')");
+              if($result)
+              {
+                ?>
 
 
+                      <script>
+                        window.confirm('Offer added');
+                          window.location = "adminpage.html";
+                      </script>
+                    <?php
+              }else {
+                ?>
+                      <script>
+                        window.confirm('failed to add offer');
+                      </script>
+                    <?php
+              }
+        }
+        ?>
+
+  <!-- PHP END -->
 
   <!-- Main content -->
   <div>
-  <form action="" method="post" enctype="multipart/form-data">
-  <div><input type="text" name="name" placeholder="Operator Name"required/></div><br>
-  <div><input type="url" name="url" placeholder="Website" required/></div><br>
-    <div class="file-field">
-    <div class="btn-logo">
-      <span>Operator logo</span>
-      <input type="file" class="file" name="image" required/><!--<button value="upload"><i class="fa fa-upload" aria-hidden="true"></i> upload</button>-->
-    </div>
-  </div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <button class="btn_1" name="submit">Add</button>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <button class="btn_1"><a href="adminpage.html">Back</a></button>
-
+  <form>
+  <div><input type="text" name="name" placeholder="Offer Name"></div><br>
+  <?php
+    $dish  =  mysqli_query($mysqli, "SELECT D_Id,D_name from dish");
+        echo"<div>";
+        echo "<select name=dish>";
+                echo"<option value='' disabled selected style='color:grey'>DISH</option>";
+				while ($row = mysqli_fetch_assoc($dish)) {
+                echo"<option value=$row[D_Id]>$row[D_name]</option>";
+                }
+        echo"</select>";
+		echo"</div><br>";
+		?>
+  <div><input type="text" name="det" placeholder="Offer Details"></div><br>
+  <div><input type="number" name="price" placeholder="Amount"></div><br>
+  <button class="btn" name="btn" value="submit"> Add</button>
+  <button class="btn"value="reset"> cancel</button>
+  <button class="btn"> <a href="adminpage.html">Back</a></button>
 </form>
 </div>
   <!--end log form -->
