@@ -73,14 +73,33 @@ if (isset($_POST['submit']))
   	move_uploaded_file($filetmp, $filedestination);
     $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
  		  $count = mysqli_num_rows($query);
-  	$sql="INSERT INTO `dish`(`D_Name`, `D_Details`, `D_Image`) VALUES ('$name','$url','$filedestination')";
+      $query = mysqli_query($mysqli, "SELECT MAX(D_Id) as max from dish");
+		  $count = mysqli_num_rows($query);
+                if($count == 1){
+                    $maxid = mysqli_fetch_array($query);
+					$did = $maxid['max']+1;
+				}
+				else
+				{ $did=1;
+			  }
+  	$sql="INSERT INTO `dish`(`D_Id`,`D_Name`, `D_Details`, `D_Image`) VALUES ('$did','$name','$url','$filedestination')";
   $query=mysqli_query($mysqli,$sql);
+  if($query){
   ?>
-          <script>
-          window.confirm('Operator added')
+         <script>
+          window.confirm('Operator added');
             window.location = "adminpage.html";
         </script>
         <?php
+      }
+      else {
+        ?>
+               <script>
+                window.confirm('failed to add Operator');
+                  window.location = "adminpage.html";
+              </script>
+              <?php
+      }
 
   }
 
@@ -106,7 +125,7 @@ if(isset($_POST['Back']))
   </div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <button class="btn_1" name="submit">Add</button>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <button class="btn_1">Back</button>
+ <button class="btn_1" onclick="adminpage.html"><a href="adminpage.html">Back</a></button>
 
 </form>
 </div>
