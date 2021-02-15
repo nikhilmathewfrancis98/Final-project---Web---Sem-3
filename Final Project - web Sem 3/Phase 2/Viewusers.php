@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dish Tv Recharge</title>
     <link  href="css/bootstrap.min.css">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,19 +37,19 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Profile</a>
+              <a href="logout.php">
+                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Log Out</a>
             </li>
-            
+
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
-  
-   
-  
-  <!-- Main content --> 
+
+
+
+  <!-- Main content -->
   <center>
   	<br><br>
 	<?php
@@ -69,11 +69,11 @@
     <th>Email</th>
     <th></th>
     </tr>";
-		while ($row=mysqli_fetch_array($query)) 
+		while ($row=mysqli_fetch_array($query))
 		{
 			echo "<tr><td>".$row['C_Id']."</td><td>".$row['C_Name']."</td><td>".$row['Age']."</td><td>".$row['Gender']."</td><td>".$row['PhoneNo']."</td><td>".$row['Email']."</td><td> <a href=\"delete.php?uid=$row[C_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
 		}
-	
+
 	}
 	else
 		echo "<b><i>empty</i></b>";
@@ -96,7 +96,7 @@
 
       <div class="row1">
 
-         <br style="width: 50px; border:2px solid black;"> 
+         <br style="width: 50px; border:2px solid black;">
         <section id="hours" style="text-align: center;color: red;">
          This  Site is more usefull for recharge facilities
         </section>
