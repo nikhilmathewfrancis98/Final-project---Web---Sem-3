@@ -66,10 +66,9 @@
 		echo"<th>Recharge Id</th>";
 		echo"<th>Feedback</th>";
 		echo"<th>Reply</th>";
-		echo"<th></th></tr>";
 		while ($row= mysqli_fetch_array($query))
 		{
-			echo "<tr><td>".$row['F_Id']."</td><td>".$row['R_Id']."</td><td>".$row['Feedback']."</td><td>".$row['Reply']."</td><td> <a href=\"delete.php?fid=$row[F_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
+			echo "<tr><td>".$row['F_Id']."</td><td>".$row['R_Id']."</td><td>".$row['Feedback']."</td><td>".$row['Reply']."</td></tr>";
 		}
 
 	}
