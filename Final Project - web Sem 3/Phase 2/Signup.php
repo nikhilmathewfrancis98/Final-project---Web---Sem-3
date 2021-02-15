@@ -59,8 +59,8 @@ require("config.php");
                 <span><i class='fas fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Sign In</a>
             </li>
             <li>
-              <a href="#">
-                <span><i class="fa fa-user"></i></span><br class="hidden-xs">User Sign In</a>
+              <a href="login.php">
+                <span><i class="fa fa-user"></i></span><br class="hidden-xs">Sign In</a>
             </li>
 
           </ul> <!-- #nav-list -->
@@ -105,7 +105,7 @@ require("config.php");
 
         </script>
       <?php
-        
+
       } else {
         echo "<font color='red'>error</font><br/>";
       }

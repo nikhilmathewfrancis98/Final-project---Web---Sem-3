@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dish Tv Recharge</title>
     <link  href="css/bootstrap.min.css">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -41,10 +41,10 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Profile</a>
+              <a href="logout.php">
+                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Log Out</a>
             </li>
-            
+
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
@@ -53,7 +53,7 @@
   <!--PHP session-->
 <?php
    include_once("config.php");
-    
+
     if(isset($_POST['update']))
     {
       $Oid = $_POST['oid'];
@@ -67,7 +67,7 @@
             window.location = "viewoperator.php";
         </script>
         <?php
-      if (isset($_FILES['image'])) 
+      if (isset($_FILES['image']))
       {
         $img=$_FILES['image'];
 
@@ -76,15 +76,15 @@
       $filetmp=$img['tmp_name'];
 
       $fileext=explode('.', $filename);
-      $filecheck=strtolower(end($fileext)); 
+      $filecheck=strtolower(end($fileext));
 
       $fileextstored = array('jpg','png','jpeg');
-      if (in_array($filecheck, $fileextstored)) 
+      if (in_array($filecheck, $fileextstored))
        {
         $filedestination='storage/'.$filename;
         move_uploaded_file($filetmp, $filedestination);
 
-    
+
         $sql="UPDATE `dish` SET `D_Name`='$name',`D_Details`='$url',`D_Image`='$filedestination' WHERE D_Id=$Oid";
         $query = mysqli_query($mysqli,$sql);
         ?>
@@ -95,14 +95,14 @@
         <?php
        }
       }
-      
-    } 
+
+    }
 
     if(isset($_POST['Back']))
     {
       header("location:viewoperator.php");
     }
-  
+
 ?>
 
 <?php

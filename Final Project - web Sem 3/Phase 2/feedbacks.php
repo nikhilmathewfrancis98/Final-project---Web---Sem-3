@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dish Tv Recharge</title>
     <link  href="css/bootstrap.min.css">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,27 +37,27 @@
         <div id="collapsable-nav" class="collapse navbar-collapse">
            <ul id="nav-list" class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">
-                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Admin Profile</a>
+              <a href="logout.php">
+                <span><i class='fa fa-user-secret' style='font-size:24px'></i></span><br class="hidden-xs">Log Out</a>
             </li>
-            
+
           </ul><!-- #nav-list -->
         </div><!-- .collapse .navbar-collapse -->
       </div><!-- .container -->
     </nav><!-- #header-nav -->
   </header>
   
-   
-  
-  <!-- Main content --> 
+
+
+  <!-- Main content -->
   <center>
   	<br><br>
 	<?php
 	include_once("config.php");
-    
+
 	$query=mysqli_query($mysqli,"select F_Id,R_Id,Feedback from feedback");
   $count=mysqli_num_rows($query);
-	if ($count> 0)  
+	if ($count> 0)
 	{
 		echo "<table>";
 		echo"<tr><th>Feedback Id</th>";
@@ -65,16 +65,16 @@
 		echo"<th>Feedback</th>";
 		echo"<th></th>";
 		echo"<th></th></tr>";
-		while ($row= mysqli_fetch_array($query)) 
+		while ($row= mysqli_fetch_array($query))
 		{
 			echo "<tr><td>".$row['F_Id']."</td><td>".$row['R_Id']."</td><td>".$row['Feedback']."</td><td><a href=\"reply.php?id=$row[F_Id]\">Reply</a></td><td> <a href=\"delete.php?fid=$row[F_Id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td></tr>";
 		}
-	
+
 	}
 	else
 		echo "<b><i>No Feedbacks yet......</i></b>";
 	echo "</table>";
-	
+
 	?>
 	<br><br>
   <a href="adminpage.html" class="btn_c"><button class="btn_1">Back</button></a>
@@ -94,7 +94,7 @@
 
       <div class="row1">
 
-         <br style="width: 50px; border:2px solid black;"> 
+         <br style="width: 50px; border:2px solid black;">
         <section id="hours" style="text-align: center;color: red;">
          This  Site is more usefull for recharge facilities
         </section>
